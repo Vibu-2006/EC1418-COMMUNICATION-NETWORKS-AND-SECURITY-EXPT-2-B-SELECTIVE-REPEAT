@@ -24,54 +24,54 @@ To implement an error control mechanism with the Selective Repeat protocol and a
 ```
 #include <stdio.h>
 
-void main()
+int main()
 {
     int i, j, n;
+    char frame[100][10];
 
     printf("GO BACK N ARQ\n");
-    //printf("Enter message in format\n");
 
     printf("Enter number of frame : ");
     scanf("%d", &n);
 
-    char frame[n][10];
+    if (n <= 0 || n > 100)
+    {
+        printf("Invalid number of frames!\n");
+        return 0;
+    }
 
     for (i = 1; i <= n; i++)
     {
         printf("Content for frame %d :", i);
-        scanf("%s", &frame[i]);
+        scanf("%9s", frame[i]);
     }
 
-    int s = 1;
+    printf("Enter frame number with no ACK :");
+    scanf("%d", &j);
 
-    //while (j <= n)
+    for (i = 1; i <= n; i++)
     {
-        printf("Enter frame number with no ACK :");
-        scanf("%d", &j);
-
-        for (i = 1; i <= n; i++)
+        if (i != j)
         {
-            if (i != j)
-            {
-                printf("\n Sending frame %d \n FRAME ACKNOWLEDGED.....\n", i);
-            }
-            //else
-            //{
-            //    printf("\n Frame not Acknowledged.......\n");
-            //}
+            printf("\nSending frame %d\n", i);
+            printf("FRAME ACKNOWLEDGED.....\n");
         }
-
-        if (j <= n)
-        {
-            printf("No Acknowledgement for frame %d... \n", j);
-            printf("Resending... Content from frame %d : %s\n", j, frame[j]);
-        }
-
-        printf("\n Sending frame %d \n FRAME ACKNOWLEDGED.....\n", j);
     }
 
-    printf("\n\nALL FRAME RECIEVED SUCCESSFULLY\n");
-} 
+    /* Frame not acknowledged */
+    printf("No Acknowledgement for frame %d...\n", j);
+
+    printf("Resending... Content from frame %d :%s\n", j, frame[j]);
+
+    /* Resend the lost frame */
+    printf("\nSending frame %d\n", j);
+    printf("FRAME ACKNOWLEDGED.....\n");
+
+    printf("\nALL FRAME RECIEVED SUCCESSFULLY\n");
+
+    return 0;
+}
+
 ```
 # OUTPUT
 <img width="537" height="646" alt="Screenshot 2026-08-02 211008" src="https://github.com/user-attachments/assets/724e063d-04b5-471f-9946-5b20bda4f993" />

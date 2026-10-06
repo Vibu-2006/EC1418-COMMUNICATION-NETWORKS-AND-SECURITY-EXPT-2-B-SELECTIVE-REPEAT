@@ -58,12 +58,10 @@ int main()
         }
     }
 
-    /* Frame not acknowledged */
     printf("No Acknowledgement for frame %d...\n", j);
 
     printf("Resending... Content from frame %d :%s\n", j, frame[j]);
 
-    /* Resend the lost frame */
     printf("\nSending frame %d\n", j);
     printf("FRAME ACKNOWLEDGED.....\n");
 
